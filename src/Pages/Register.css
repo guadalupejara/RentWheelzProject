@@ -1,0 +1,9 @@
+#RegisterPageContainer {
+    background-image: url('/public/dealership.jpg');
+  }
+
+.login-text {
+    width: 50%; /* Adjust as needed */
+    height: 8%; /* Adjust as needed */
+    margin: auto; /* Center the div */
+}

@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Navbar from './Components/Navbar';
+import Login from './Pages/LogIn';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Register from './Pages/Register';
+import CarsPage from './Pages/CarsPage';
+import MyBookings from './Pages/MyBookingsPage';
+import RawContext from '../src/Pages/MyContext';
+
+type Car = {
+    imageurl: string,
+    carModel: string,
+    carType: string,
+    id: number,
+    rentalPrice: number,
+    rentalDates: { pickupDate: string; returnDate: string }[],
+    status: string
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [raw, setRaw] = useState<Car[]>([]); // Maintain the raw state here
+
+    return (
+        <React.Fragment>
+            <Router>
+                <Navbar />
+                <RawContext.Provider value={{ raw, setRaw }}> {/* Provide the RawContext */}
+                    <Routes>
+                        <Route path="/" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/cars" element={<CarsPage />} />
+                        <Route path="/mybookings" element={<MyBookings />} />
+                    </Routes>
+                </RawContext.Provider>
+            </Router>
+        </React.Fragment>
+    );
 }
 
 export default App;
